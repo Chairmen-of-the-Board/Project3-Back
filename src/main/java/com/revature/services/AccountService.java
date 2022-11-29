@@ -9,6 +9,7 @@ import com.revature.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ public class AccountService {
 
     @Autowired
     private UserService userService;
+
 
     public Optional<Account> findByUserId(int id) {
         User user = userService.findById(id);

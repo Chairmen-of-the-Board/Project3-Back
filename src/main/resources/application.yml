@@ -3,13 +3,13 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update  #create-drop
       database-platform: org.hibernate.dialect.PostgreSQLDialect
     #      database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
   datasource:
     # this my person db location
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=p7
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=ers_schema
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: password
