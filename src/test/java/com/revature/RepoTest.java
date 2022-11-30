@@ -4,7 +4,9 @@ import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.models.TransactionType;
 import com.revature.models.Transfer;
+import com.revature.repositories.AccountRepository;
 import com.revature.repositories.TransactionRepository;
+import com.revature.repositories.TransferRepository;
 import com.revature.services.AccountService;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
@@ -17,21 +19,21 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional
 public class RepoTest {
 
-    AccountService mockAccountService;
-    @Autowired
-    TransactionRepository transactionRepository;
+   // @Autowired
+   // TransactionRepository transactionRepository;
+
+    private AccountRepository mockAccountRepo = mock(AccountRepository.class);
 
     // set up tests
     @Before
     public void setup () {
-
-        mockAccountService = mock(AccountService.class);
-
+       // mockAccountService = mock(AccountService.class);
     }
 
     //tests createtransfer in service
@@ -45,16 +47,23 @@ public class RepoTest {
         account1.setId(2);
         account2.setBalance(1000d);
 
+        when(mockAccountRepo.findById(1)).thenReturn(account1);
+
+
         Transfer transfer = new Transfer();
+        transfer.setId(22);
         transfer.setFromAcctId(1);
         transfer.setToAcctId(2);
         transfer.setId(1);
         transfer.setAmount(500);
 
-        mockAccountService = mock(AccountService.class);
-        mockAccountService.createTransfer(transfer);
+        System.out.println(transfer.toString());
+     //   mockAccountService = mock(AccountService.class);
+    //    when(mockAccountService.createTransfer(transfer)).thenReturn(transfer);
 
-        Assertions.assertEquals(500.0, account1.getBalance());
+     //   mockAccountService.createTransfer(transfer);
+
+        Assertions.assertEquals(500.0,transfer.getAmount());
 
     }
 
