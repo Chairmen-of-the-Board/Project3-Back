@@ -10,7 +10,6 @@ spring:
   datasource:
     # this my person db location
     url: jdbc:postgresql://hika-1.c45c74l14csd.us-east-1.rds.amazonaws.com/postgres?currentSchema=project3
-
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: password
