@@ -12,4 +12,4 @@ phases:
 artifacts:
     files:
     - 'Dockerfile'
-    - 'src/target/curated-banking-spring-1.0-SNAPSHOT.jar'
+    - 'curated-banking-spring-1.0-SNAPSHOT.jar'
