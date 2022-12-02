@@ -34,31 +34,6 @@ public class RepoTest {
 
     }
 
-    //tests createtransfer in service
-    @Test
-    @Transactional
-    public void create_transfer_test(){
-        Account account1 = new Account( "accountname", "description", null, null);
-        account1.setId(1);
-        account1.setBalance(1000d);
-        Account account2 = new Account( "accountname", "description", null, null);
-        account1.setId(2);
-        account2.setBalance(1000d);
-
-        Transfer transfer = new Transfer();
-        transfer.setFromAcctId(1);
-        transfer.setToAcctId(2);
-        transfer.setId(1);
-        transfer.setAmount(500);
-
-        mockAccountService = mock(AccountService.class);
-        mockAccountService.createTransfer(transfer);
-
-        Assertions.assertEquals(500.0, account1.getBalance());
-
-    }
-
-
 
     // finds all transactions of an account
     @Test
