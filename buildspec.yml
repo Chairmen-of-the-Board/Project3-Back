@@ -12,4 +12,9 @@ phases:
 artifacts:
     files:
     - 'Dockerfile'
-    - './curated-banking-spring-1.0-SNAPSHOT.jar'
+    secondary-artifacts:
+        artifact1:
+        base-directory: $CODEBUILD_SRC_DIR
+        files:
+            - 'curated-banking-spring-1.0-SNAPSHOT.jar'
+    
