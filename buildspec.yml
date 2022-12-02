@@ -1,10 +1,14 @@
 version: 0.2
 
 phases:
+    install:
+        runtime-versions:
+            java: openjdk8
+
+    
     build:
         commands:
-        - java -version
-        - mvn package
+        - mvn clean install
 artifacts:
     files:
     - 'Dockerfile'
