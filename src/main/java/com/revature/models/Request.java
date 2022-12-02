@@ -17,15 +17,15 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer requestAccId;
-    private Integer targetID;
+    private Integer targetId;
     private Double amount;
     private String description;
     private String status;
     private Date creationDate;
 
-    public Request(Integer requestAccId, Integer targetID, Double amount, String description, String status, Date creationDate) {
+    public Request(Integer requestAccId, Integer targetId, Double amount, String description, String status, Date creationDate) {
         this.requestAccId = requestAccId;
-        this.targetID = targetID;
+        this.targetId = targetId;
         this.amount = amount;
         this.description = description;
         this.status = status;

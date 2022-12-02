@@ -1,8 +1,10 @@
 package com.revature;
 
 import com.revature.models.*;
+import com.revature.repositories.RequestRepository;
 import com.revature.repositories.TransactionRepository;
 import com.revature.services.AccountService;
+import com.revature.services.RequestService;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,6 +28,9 @@ public class RepoTest {
     Date testDate;
     @Autowired
     TransactionRepository transactionRepository;
+    RequestRepository mockRequestRepository;
+    @Autowired
+    RequestService requestService;
 
     // set up tests
     @Before
@@ -33,6 +38,7 @@ public class RepoTest {
 
         mockAccountService = mock(AccountService.class);
         testDate = Date.from(Instant.now());
+        mockRequestRepository = mock(RequestRepository.class);
 
     }
 
@@ -53,7 +59,6 @@ public class RepoTest {
         transfer.setId(1);
         transfer.setAmount(500);
 
-        mockAccountService = mock(AccountService.class);
         mockAccountService.createTransfer(transfer);
 
         Assertions.assertEquals(500.0, account1.getBalance());
@@ -104,73 +109,43 @@ public class RepoTest {
     * */
 
     @Test
-    @Order(1)
     @Transactional
     public void request_create_test() {
-        Request gotRequest = new Request(1,3,100.00,"For my dog","Pending",testDate);
-        Assertions.assertNotNull(gotRequest);
+        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request gotRequest = requestService.upsertRequest(testRequest);
+        Assertions.assertEquals(testRequest.getCreationDate(), gotRequest.getCreationDate());
     }
 
     @Test
-    @Order(2)
-    @Transactional
-    public void request_get_requesterID_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals(1,gotRequest.getRequestAccId());
-    }
-
-    @Test
-    @Order(3)
-    @Transactional
-    public void request_get_targetID_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals(3,gotRequest.getTargetID());
-    }
-
-    @Test
-    @Order(4)
-    @Transactional
-    public void request_get_amount_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals(100.00,gotRequest.getAmount());
-    }
-
-    @Test
-    @Order(5)
-    @Transactional
-    public void request_get_description_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals("For my dog",gotRequest.getDescription());
-    }
-
-    @Test
-    @Order(6)
-    @Transactional
-    public void request_get_status_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals("Pending",gotRequest.getStatus());
-    }
-
-    @Test
-    @Order(7)
-    @Transactional
-    public void request_get_date_test(){
-        Request gotRequest = new Request();
-        Assertions.assertEquals(testDate,gotRequest.getCreationDate());
-    }
-
-    @Test
-    @Order(8)
     @Transactional
     public void request_set_status_test(){
-        Request gotRequest = new Request();
+        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request gotRequest = requestService.upsertRequest(testRequest);
+        testRequest = gotRequest;
+        testRequest.setStatus("Accepted");
+        gotRequest = requestService.upsertRequest(testRequest);
         Assertions.assertEquals("Accepted",gotRequest.getStatus());
     }
 
     @Test
-    @Order(9)
     @Transactional
-    public void request_delete_test(){
+    public void request_get_outgoing_test(){
+        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request gotRequest = requestService.upsertRequest(testRequest);
+        testRequest = new Request(0,1,5,200.00,"For my dog","Pending",testDate);
+        gotRequest = requestService.upsertRequest(testRequest);
+        List<Request> testList = requestService.getOutgoing(1);
+        Assertions.assertEquals(2, testList.size());
+    }
 
+    @Test
+    @Transactional
+    public void request_get_incoming_test(){
+        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request gotRequest = requestService.upsertRequest(testRequest);
+        testRequest = new Request(0,5,3,200.00,"For my dog","Pending",testDate);
+        gotRequest = requestService.upsertRequest(testRequest);
+        List<Request> testList = requestService.getIncoming(3);
+        Assertions.assertEquals(2,testList.size());
     }
 }
