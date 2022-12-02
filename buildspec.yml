@@ -5,10 +5,10 @@ phases:
         runtime-versions:
             java: corretto11
 
-    
     build:
         commands:
-        - mvn clean install
+        - mvn clean package
+        
 artifacts:
     files:
     - 'Dockerfile'
