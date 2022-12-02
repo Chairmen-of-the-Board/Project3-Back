@@ -9,7 +9,7 @@
 #ENTRYPOINT [ "java", "-jar", "target/curated-banking-spring-1.0-SNAPSHOT.jar" ]
 
 FROM openjdk
-RUN echo $(ls -1 /target)
+RUN echo $(ls -1 .)
 COPY ["/target/curated-banking-spring 1.0-SNAPSHOT.jar", "curated-banking-spring 1.0-SNAPSHOT.jar"]
 EXPOSE 8080
 ENTRYPOINT [ "java", "-jar", "target/curated-banking-spring 1.0-SNAPSHOT.jar" ]
