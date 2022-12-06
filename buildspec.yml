@@ -12,5 +12,5 @@ phases:
 artifacts:
     files:
     - 'Dockerfile'
-    - '$CODEBUILD_SRC_DIR/target/curated-banking-spring-1.0-SNAPSHOT.jar'
+    - '$CODEBUILD_SRC_DIR/target/curated-banking-spring-1.0-SNAPSHOT-jar-with-dependencies.jar'
     
