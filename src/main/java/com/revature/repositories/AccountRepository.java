@@ -2,6 +2,7 @@ package com.revature.repositories;
 
 import com.revature.models.Account;
 import com.revature.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
