@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.revature.BankingAppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.075 s - in com.revature.BankingAppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.967 s - in com.revature.BankingAppTest

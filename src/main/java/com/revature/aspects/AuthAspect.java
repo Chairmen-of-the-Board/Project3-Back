@@ -21,7 +21,7 @@ public class AuthAspect {
 
     private final HttpServletRequest req;
 
-    @Autowired
+
     public AuthAspect(HttpServletRequest req) {
         this.req = req;
     }
