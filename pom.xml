@@ -80,7 +80,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>src.main.java.com.revature.BankingApplication</mainClass>
+                            <mainClass>com.revature.BankingApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
