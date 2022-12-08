@@ -2,6 +2,9 @@ version: 0.2
 
 phases:
   build:
+    arg:
+      - DB_USERNAME=${DB_USERNAME}
+      - PASSWORD=${PASSWORD}
     commands:
       - java -version
        - mvn clean package
