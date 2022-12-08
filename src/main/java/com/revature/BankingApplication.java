@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.revature*")
 public class BankingApplication {
     public static void main(String[] args) {
         SpringApplication.run(BankingApplication.class, args);
