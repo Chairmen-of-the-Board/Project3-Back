@@ -1,13 +1,11 @@
 version: 0.2
 
 phases:
-    build:
-        commands:
-        - java -version
-        - mvn clean package
-        
+  build:
+    commands:
+      - java -version
+       - mvn clean package
 artifacts:
-    files:
+  files:
     - 'Dockerfile'
-    - target\curated-banking-spring-1.0-SNAPSHOT-jar-with-dependencies.jar
-    
+    - target/curated-banking-spring-1.0-SNAPSHOT-jar-with-dependencies.jar
