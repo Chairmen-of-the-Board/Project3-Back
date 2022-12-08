@@ -18,7 +18,7 @@ public class AuthAspect {
     // Spring will autowire a proxy object for the request
     // It isn't a request object itself, but if there is an active request
     // the proxy will pass method calls to the real request
-    @Autowired
+
     private final HttpServletRequest req;
 
     public AuthAspect(HttpServletRequest req) {
