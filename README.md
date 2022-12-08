@@ -1,2 +1,2 @@
 # Project3-Back
-We put in environment variables for the DB
+We put in environment variables for the database
