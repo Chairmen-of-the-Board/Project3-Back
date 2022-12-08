@@ -1,4 +1,2 @@
 # Project3-Back
-
-# To Do after MVP:
-* Enums for 
+We put in environment variables for the DB
