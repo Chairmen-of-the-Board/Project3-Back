@@ -3,16 +3,16 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update  #create-drop
+      ddl-auto: create  #create-drop #:)
       database-platform: org.hibernate.dialect.PostgreSQLDialect
     #      database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
   datasource:
     # this my person db location
-    url: jdbc:postgresql://patrick-orwin-221010-team-2.cvtq9j4axrge.us-east-1.rds.amazonaws.com/postgres?currentSchema=project3
+    url: jdbc:postgresql://database-1.ccg9vo2amzf1.us-west-1.rds.amazonaws.com/postgres?currentSchema=project3
     driver-class-name: org.postgresql.Driver
-    username: ${DB_USERNAME}
-    password: ${PASSWORD}
+    username: postgres
+    password: kj&(99cp1X8Rr^yvlL
   #    url: jdbc:h2:mem:memdb
   #    driver-class-name: org.h2.Driver
   #    username: sa
