@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import com.revature.annotations.Authorized;
 import com.revature.models.Account;
+import com.revature.models.Send;
 import com.revature.models.Transaction;
 import com.revature.models.Transfer;
 import com.revature.services.AccountService;
@@ -66,6 +67,12 @@ public class AccountController {
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Transfer> addTransfer(@RequestBody Transfer transfer) {
         return new ResponseEntity<>(accountService.createTransfer(transfer), HttpStatus.CREATED);
+    }
+    //@Authorized
+    @GetMapping("/{id}/received")
+    public ResponseEntity<List<Send>> getReceived(@PathVariable ("id") int transferId) {
+        //System.out.println(ResponseEntity.ok(accountService.getAllTransfers(transferId)));
+        return ResponseEntity.ok(accountService.getAllSends(transferId));
     }
 
 }

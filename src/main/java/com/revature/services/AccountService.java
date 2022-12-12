@@ -90,23 +90,41 @@ public class AccountService {
         Account fromAccount = accountRepository.getById(transfer.getFromAcctId());
         Account toAccount = accountRepository.getById(transfer.getToAcctId());
 
-        // do math
-        double fromBalance = fromAccount.getBalance() - transfer.getAmount();
-        double toBalance = toAccount.getBalance() + transfer.getAmount();
+        //alec - just added a catch to prevent people from adding negative amounts?
+        if(transfer.getAmount() >0){
+            // do math
+            double fromBalance = fromAccount.getBalance() - transfer.getAmount();
+            double toBalance = toAccount.getBalance() + transfer.getAmount();
 
-        // set new associated account balances
-        fromAccount.setBalance(fromBalance);
-        toAccount.setBalance(toBalance);
+            // set new associated account balances
+            fromAccount.setBalance(fromBalance);
+            toAccount.setBalance(toBalance);
 
-        //save both accounts
-        accountRepository.saveAndFlush(fromAccount);
-        accountRepository.saveAndFlush(toAccount);
+            //save both accounts
+            accountRepository.saveAndFlush(fromAccount);
+            accountRepository.saveAndFlush(toAccount);
 
-        // save transfer object
-        transferRepository.saveAndFlush(transfer);
+            // save transfer object
+            transferRepository.saveAndFlush(transfer);
 
-        // return the originating account
-        return transfer;
+            // return the originating account
+            return transfer;
+
+        }
+        else {
+            return null;
+        }
+
+
 
     }
+
+    public List<Send> getAllSends(int accountId) {
+        Account account = accountRepository.getById(accountId);
+        //System.out.println(transactionRepository.findAllById(account));
+
+        // filter if receviver !senderId
+        return transactionRepository.findAllById(account);
+    }
+
 }
