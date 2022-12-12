@@ -29,8 +29,8 @@ public class AccountService {
 
 
     public Optional<Account> findByUserId(int id) {
-        User user = userService.findById(id);
-        return accountRepository.findByUser(user);
+        Optional<User> user = userService.findById(id);
+        return accountRepository.findByUser(user.get());
     }
 
     public Optional<Account> findById(int id) {
@@ -40,7 +40,7 @@ public class AccountService {
     public Account upsertAccount(Account accountToUpsert, String userId) {
 
         int id = Integer.parseInt(userId);
-        User user = userService.findById(id);
+        Optional<User> user = userService.findById(id);
 
         if(accountRepository.existsById(accountToUpsert.getId())) {
             Account account = accountRepository.getById(accountToUpsert.getId());
@@ -49,7 +49,7 @@ public class AccountService {
             account.setName(accountToUpsert.getName());
             return accountRepository.saveAndFlush(account);
         } else {
-            accountToUpsert.setUser(user);
+            accountToUpsert.setUser(user.get());
             accountToUpsert.setCreationDate(Date.from(Instant.now()));
             return accountRepository.save(accountToUpsert);
         }
@@ -62,8 +62,8 @@ public class AccountService {
 
     // gets all accounts of a given user id
     public List<Account> getAllAccounts(int userId) {
-        User user = userService.findById(userId);
-        return accountRepository.findAllByUser(user);
+        Optional<User> user = userService.findById(userId);
+        return accountRepository.findAllByUser(user.get());
     }
 
 
