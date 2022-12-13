@@ -35,7 +35,7 @@ public class UserService {
 
 
 
-    //method for updating user info
+    //Method for updating user info
     public User updateUser(UpdateUser updateUser)
     {
 //        User user = userRepository.findByEmailAndPassword(updateUser.getOldemail(), updateUser.getPassword()).get();
