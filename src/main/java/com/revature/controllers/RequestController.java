@@ -26,13 +26,14 @@ public class RequestController {
     }
 
     @Authorized
-    @PostMapping("/{id}/incoming")
+    @GetMapping("/{id}/incoming")
     public ResponseEntity<List<Request>> getUserIncoming(@PathVariable("id") int id){
+        System.out.println("incoming!");
         return ResponseEntity.ok(requestService.getIncoming(id));
     }
 
     @Authorized
-    @PostMapping("/{id}/outgoing")
+    @GetMapping("/{id}/outgoing")
     public ResponseEntity<List<Request>> getUserOutgoing(@PathVariable("id") int id){
         return ResponseEntity.ok(requestService.getOutgoing(id));
     }
