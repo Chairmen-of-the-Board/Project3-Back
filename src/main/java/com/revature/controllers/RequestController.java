@@ -21,6 +21,7 @@ public class RequestController {
     @Authorized
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Request> createRequest(@RequestBody Request request){
+        System.out.println(request.toString());
         return ResponseEntity.ok(requestService.upsertRequest(request));
     }
 
