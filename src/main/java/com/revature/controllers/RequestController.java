@@ -21,14 +21,12 @@ public class RequestController {
     @Authorized
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Request> createRequest(@RequestBody Request request){
-        System.out.println(request.toString());
         return ResponseEntity.ok(requestService.upsertRequest(request));
     }
 
     @Authorized
     @GetMapping("/{id}/incoming")
     public ResponseEntity<List<Request>> getUserIncoming(@PathVariable("id") int id){
-        System.out.println("incoming!");
         return ResponseEntity.ok(requestService.getIncoming(id));
     }
 
