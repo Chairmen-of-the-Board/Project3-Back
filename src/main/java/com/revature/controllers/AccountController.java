@@ -68,6 +68,14 @@ public class AccountController {
     public ResponseEntity<Transfer> addTransfer(@RequestBody Transfer transfer) {
         return new ResponseEntity<>(accountService.createTransfer(transfer), HttpStatus.CREATED);
     }
+    // get all transfers
+    @Authorized
+    @GetMapping("/{id}/transfer")
+    public ResponseEntity<List<Transfer>> getTransfers(@PathVariable("id") int accountId) {
+        return ResponseEntity.ok(accountService.getAllTransfers(accountId));
+    }
+
+
     //@Authorized
     @GetMapping("/{id}/received")
     public ResponseEntity<List<Send>> getReceived(@PathVariable ("id") int transferId) {

@@ -32,6 +32,9 @@ public class RepoTest {
     @Autowired
     RequestService requestService;
 
+    @Autowired
+    AccountService accountService;
+
     // set up tests
     @Before
     public void setup () {
@@ -123,4 +126,19 @@ public class RepoTest {
         List<Request> testList = requestService.getIncoming(3);
         Assertions.assertEquals(2,testList.size());
     }
+
+
+    // transfer test
+    @Test
+    @Transactional
+    public void get_all_transfers_test(){
+
+        List<Transfer> transferList = accountService.getAllTransfers(1);
+        for (Transfer t : transferList)
+            System.out.println(t.toString());
+        Assertions.assertTrue(transferList.size() > 0);
+    }
+
+
+
 }

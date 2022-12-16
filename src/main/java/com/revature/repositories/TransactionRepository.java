@@ -14,6 +14,6 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
     List<Transaction> findByAccount(Account account);
+    List<Send> findAllById(int accountId);
 
-    List<Send> findAllById(Account account);
 }

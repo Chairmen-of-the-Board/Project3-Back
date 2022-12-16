@@ -118,13 +118,19 @@ public class AccountService {
 
 
     }
+    // get all transfers
+    public List<Transfer> getAllTransfers(int accountId) {
+        return transferRepository.findAllById(accountId);
+    }
+
+
 
     public List<Send> getAllSends(int accountId) {
-        Account account = accountRepository.getById(accountId);
+       // Account account = accountRepository.getById(accountId);
         //System.out.println(transactionRepository.findAllById(account));
 
-        // filter if receviver !senderId
-        return transactionRepository.findAllById(account);
+        // filter if receiver !senderId
+        return transactionRepository.findAllById(accountId);
     }
 
 }
