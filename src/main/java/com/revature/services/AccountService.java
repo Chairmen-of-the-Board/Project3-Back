@@ -120,7 +120,11 @@ public class AccountService {
     }
     // get all transfers
     public List<Transfer> getAllTransfers(int accountId) {
-        return transferRepository.findAllById(accountId);
+        List<Transfer> fromList = transferRepository.findAllByFromAcctId(accountId);
+        List<Transfer> toList = transferRepository.findAllByToAcctId(accountId);
+        List<Transfer> totalList = fromList;
+        totalList.addAll(toList);
+        return totalList;
     }
 
 

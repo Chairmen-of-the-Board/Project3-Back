@@ -15,7 +15,8 @@ import java.util.List;
 public interface TransferRepository extends JpaRepository<Transfer, Integer> {
 
 
-    List<Transfer> findAllById(int accountId);
+    List<Transfer> findAllByFromAcctId(int accountId);
+    List<Transfer> findAllByToAcctId(int accountId);
 
 
 }
