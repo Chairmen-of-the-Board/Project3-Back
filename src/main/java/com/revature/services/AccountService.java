@@ -91,7 +91,7 @@ public class AccountService {
         Account toAccount = accountRepository.getById(transfer.getToAcctId());
 
         //alec - just added a catch to prevent people from adding negative amounts?
-        if(transfer.getAmount() >0){
+        if(transfer.getAmount() >0 && fromAccount.getBalance() >= transfer.getAmount()){
             // do math
             double fromBalance = fromAccount.getBalance() - transfer.getAmount();
             double toBalance = toAccount.getBalance() + transfer.getAmount();
