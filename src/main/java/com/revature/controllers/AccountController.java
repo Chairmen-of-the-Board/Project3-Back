@@ -36,6 +36,9 @@ public class AccountController {
         return ResponseEntity.ok(optional.get());
     }
 
+
+
+
     @Authorized
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Account> createAccount(@RequestBody Account account, @RequestHeader("Current-User") String userId) {
