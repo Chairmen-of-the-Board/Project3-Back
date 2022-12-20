@@ -32,7 +32,7 @@ public class RequestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Request> createRequest(@RequestBody Request request){
         Optional<User> user = userService.findByEmail(request.getTargetEmail());
-        Request newRequest = new Request(0, request.getRequestAccId(), user.get().getId(), request.getTargetEmail(), request.getAmount(),
+        Request newRequest = new Request(request.getId(), request.getRequestAccId(), user.get().getId(), request.getTargetEmail(), request.getAmount(),
                             request.getDescription(), request.getStatus(), request.getCreationDate());
         return ResponseEntity.ok(requestService.upsertRequest(newRequest));
     }
