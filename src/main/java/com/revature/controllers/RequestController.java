@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.annotations.Authorized;
+import com.revature.exceptions.EmailNotFoundException;
 import com.revature.models.Account;
 import com.revature.models.Request;
 import com.revature.models.User;
@@ -32,6 +33,9 @@ public class RequestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Request> createRequest(@RequestBody Request request){
         Optional<User> user = userService.findByEmail(request.getTargetEmail());
+        if (!user.isPresent()) {
+            throw new EmailNotFoundException("User with the specified email not found.");
+        }
         Request newRequest = new Request(request.getId(), request.getRequestAccId(), user.get().getId(), request.getTargetEmail(), request.getAmount(),
                             request.getDescription(), request.getStatus(), request.getCreationDate());
         return ResponseEntity.ok(requestService.upsertRequest(newRequest));
