@@ -18,6 +18,16 @@ public class Request {
     private Integer id;
     private Integer requestAccId;
     private Integer targetId;
+
+    public String getTargetEmail() {
+        return targetEmail;
+    }
+
+    public void setTargetEmail(String targetEmail) {
+        this.targetEmail = targetEmail;
+    }
+
+    private String targetEmail;
     private Double amount;
     private String description;
     private String status;
@@ -30,5 +40,12 @@ public class Request {
         this.description = description;
         this.status = status;
         this.creationDate = creationDate;
+    }
+
+
+    public Request(String targetEmail, Double amount, String description) {
+        this.targetEmail = targetEmail;
+        this.amount = amount;
+        this.description = description;
     }
 }

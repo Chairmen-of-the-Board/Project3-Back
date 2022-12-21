@@ -15,5 +15,4 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 
     List<Request> findAllByTargetId(Integer targetId);
 
-
 }

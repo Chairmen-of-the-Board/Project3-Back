@@ -29,8 +29,8 @@ public class AccountService {
 
 
     public Optional<Account> findByUserId(int id) {
-        User user = userService.findById(id);
-        return accountRepository.findByUser(user);
+        Optional<User> user = userService.findById(id);
+        return accountRepository.findByUser(user.get());
     }
 
     public Optional<Account> findById(int id) {
@@ -40,7 +40,7 @@ public class AccountService {
     public Account upsertAccount(Account accountToUpsert, String userId) {
 
         int id = Integer.parseInt(userId);
-        User user = userService.findById(id);
+        Optional<User> user = userService.findById(id);
 
         if(accountRepository.existsById(accountToUpsert.getId())) {
             Account account = accountRepository.getById(accountToUpsert.getId());
@@ -49,7 +49,7 @@ public class AccountService {
             account.setName(accountToUpsert.getName());
             return accountRepository.saveAndFlush(account);
         } else {
-            accountToUpsert.setUser(user);
+            accountToUpsert.setUser(user.get());
             accountToUpsert.setCreationDate(Date.from(Instant.now()));
             return accountRepository.save(accountToUpsert);
         }
@@ -62,8 +62,8 @@ public class AccountService {
 
     // gets all accounts of a given user id
     public List<Account> getAllAccounts(int userId) {
-        User user = userService.findById(userId);
-        return accountRepository.findAllByUser(user);
+        Optional<User> user = userService.findById(userId);
+        return accountRepository.findAllByUser(user.get());
     }
 
 
@@ -90,23 +90,51 @@ public class AccountService {
         Account fromAccount = accountRepository.getById(transfer.getFromAcctId());
         Account toAccount = accountRepository.getById(transfer.getToAcctId());
 
-        // do math
-        double fromBalance = fromAccount.getBalance() - transfer.getAmount();
-        double toBalance = toAccount.getBalance() + transfer.getAmount();
+        //alec - just added a catch to prevent people from adding negative amounts?
+        if(transfer.getAmount() >0 && fromAccount.getBalance() >= transfer.getAmount()){
+            // do math
+            double fromBalance = fromAccount.getBalance() - transfer.getAmount();
+            double toBalance = toAccount.getBalance() + transfer.getAmount();
 
-        // set new associated account balances
-        fromAccount.setBalance(fromBalance);
-        toAccount.setBalance(toBalance);
+            // set new associated account balances
+            fromAccount.setBalance(fromBalance);
+            toAccount.setBalance(toBalance);
 
-        //save both accounts
-        accountRepository.saveAndFlush(fromAccount);
-        accountRepository.saveAndFlush(toAccount);
+            //save both accounts
+            accountRepository.saveAndFlush(fromAccount);
+            accountRepository.saveAndFlush(toAccount);
 
-        // save transfer object
-        transferRepository.saveAndFlush(transfer);
+            // save transfer object
+            transferRepository.saveAndFlush(transfer);
 
-        // return the originating account
-        return transfer;
+            // return the originating account
+            return transfer;
+
+        }
+        else {
+            return null;
+        }
+
+
 
     }
+    // get all transfers
+    public List<Transfer> getAllTransfers(int accountId) {
+        List<Transfer> fromList = transferRepository.findAllByFromAcctId(accountId);
+        List<Transfer> toList = transferRepository.findAllByToAcctId(accountId);
+        List<Transfer> totalList = fromList;
+        totalList.addAll(toList);
+        return totalList;
+    }
+
+
+
+    public List<Send> getAllSends(int accountId) {
+       // Account account = accountRepository.getById(accountId);
+        //System.out.println(transactionRepository.findAllById(account));
+
+        // filter if receiver !senderId
+        return transactionRepository.findAllById(accountId);
+    }
+
 }

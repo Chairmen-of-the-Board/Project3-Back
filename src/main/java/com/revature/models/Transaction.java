@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "transactions")
@@ -18,6 +19,7 @@ public class Transaction {
     private int id;
     private double amount;
     private String description;
+    private Timestamp timestamp;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;

@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import com.revature.annotations.Authorized;
 import com.revature.models.Account;
+import com.revature.models.Send;
 import com.revature.models.Transaction;
 import com.revature.models.Transfer;
 import com.revature.services.AccountService;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000", "http://angular-app-frontend-sdfgsfdgsfgs.s3-website-us-west-1.amazonaws.com:4200"}, allowCredentials = "true")
 public class AccountController {
 
     @Autowired
@@ -34,6 +35,9 @@ public class AccountController {
         }
         return ResponseEntity.ok(optional.get());
     }
+
+
+
 
     @Authorized
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -66,6 +70,20 @@ public class AccountController {
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Transfer> addTransfer(@RequestBody Transfer transfer) {
         return new ResponseEntity<>(accountService.createTransfer(transfer), HttpStatus.CREATED);
+    }
+    // get all transfers
+    @Authorized
+    @GetMapping("/{id}/transfer")
+    public ResponseEntity<List<Transfer>> getTransfers(@PathVariable("id") int accountId) {
+        return ResponseEntity.ok(accountService.getAllTransfers(accountId));
+    }
+
+
+    //@Authorized
+    @GetMapping("/{id}/received")
+    public ResponseEntity<List<Send>> getReceived(@PathVariable ("id") int transferId) {
+        //System.out.println(ResponseEntity.ok(accountService.getAllTransfers(transferId)));
+        return ResponseEntity.ok(accountService.getAllSends(transferId));
     }
 
 }

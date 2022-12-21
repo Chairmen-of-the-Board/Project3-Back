@@ -1,5 +1,11 @@
 package com.revature.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus (value = HttpStatus.NOT_ACCEPTABLE, reason = "Email already exists")
+
+
 public class DuplicateEmailFoundException extends RuntimeException{
     public DuplicateEmailFoundException() {
     }
