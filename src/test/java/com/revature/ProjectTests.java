@@ -63,7 +63,7 @@ public class ProjectTests {
     @Test
     @Transactional
     public void request_create_test() {
-        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request testRequest = new Request(0,1,3,"test@test.com",100.00,"For my dog","Pending",testDate);
         Request gotRequest = requestService.upsertRequest(testRequest);
         Assertions.assertEquals(testRequest.getCreationDate(), gotRequest.getCreationDate());
     }
@@ -71,7 +71,7 @@ public class ProjectTests {
     @Test
     @Transactional
     public void request_set_status_test(){
-        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request testRequest = new Request(0,1,3,"test@test.com",100.00,"For my dog","Pending",testDate);
         Request gotRequest = requestService.upsertRequest(testRequest);
         testRequest = gotRequest;
         testRequest.setStatus("Accepted");
@@ -82,9 +82,9 @@ public class ProjectTests {
     @Test
     @Transactional
     public void request_get_outgoing_test(){
-        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request testRequest = new Request(0,1,3,"test@test.com",100.00,"For my dog","Pending",testDate);
         Request gotRequest = requestService.upsertRequest(testRequest);
-        testRequest = new Request(0,1,5,200.00,"For my dog","Pending",testDate);
+        testRequest = new Request(0,1,5,"test2@test2.com",200.00,"For my dog","Pending",testDate);
         gotRequest = requestService.upsertRequest(testRequest);
         List<Request> testList = requestService.getOutgoing(1);
         Assertions.assertEquals(2, testList.size());
@@ -93,9 +93,9 @@ public class ProjectTests {
     @Test
     @Transactional
     public void request_get_incoming_test(){
-        Request testRequest = new Request(0,1,3,100.00,"For my dog","Pending",testDate);
+        Request testRequest = new Request(0,1,3,"test@test.com",100.00,"For my dog","Pending",testDate);
         Request gotRequest = requestService.upsertRequest(testRequest);
-        testRequest = new Request(0,5,3,200.00,"For my dog","Pending",testDate);
+        testRequest = new Request(0,5,3,"test@test.com",200.00,"For my dog","Pending",testDate);
         gotRequest = requestService.upsertRequest(testRequest);
         List<Request> testList = requestService.getIncoming(3);
         Assertions.assertEquals(2,testList.size());
@@ -110,7 +110,7 @@ public class ProjectTests {
         List<Transfer> transferList = accountService.getAllTransfers(1);
         for (Transfer t : transferList)
             System.out.println(t.toString());
-        Assertions.assertTrue(transferList.size() > 0);
+        Assertions.assertNotNull(transferList);
     }
 
     @Test
